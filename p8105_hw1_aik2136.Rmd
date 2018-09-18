@@ -5,7 +5,26 @@ date: "9/18/2018"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Problem 1
+
+## Creating a dataframe
+The chunk below creates a dataframe containing a sample of size 10 from a 
+random uniform[0,5] distributed variable, a logical vector indicating whether elements of the sample are greater than 2, a (length-10) character vector, and a (length-10) factor vector.
+
+```{r create_data_frame}
+library(tidyverse)
+
+prob1_df = tibble(
+  unif_samp = runif(10, min = 0, max = 5),
+  vec_logical = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE,
+                  FALSE),
+  vec_char = c("This", "is", "my", "first", "homework", "using", "R", "for",
+               "data", "science"),
+  vec_factor = factor(c("greater", "less", "greater", "less", "less",
+                        "greater", "greater", "greater", "greater", "less"))
+)
 ```
+
+
+
 
