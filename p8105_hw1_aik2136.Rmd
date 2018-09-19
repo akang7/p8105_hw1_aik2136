@@ -14,17 +14,29 @@ random uniform[0,5] distributed variable, a logical vector indicating whether el
 ```{r create_data_frame}
 library(tidyverse)
 
-prob1_df = tibble(
-  unif_samp = runif(10, min = 0, max = 5),
-  vec_logical = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE,
-                  FALSE),
-  vec_char = c("This", "is", "my", "first", "homework", "using", "R", "for",
-               "data", "science"),
-  vec_factor = factor(c("greater", "less", "greater", "less", "less",
-                        "greater", "greater", "greater", "greater", "less"))
-)
+set.seed(1)
+
+unif_samp = runif(n = 10, min = 0, max = 5)
+vec_logical = c(FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, 
+                  TRUE, TRUE, TRUE, FALSE)
+vec_char = c("This", "is", "my", "first", "homework", 
+               "using", "R", "for", "data", "science")
+vec_factor = factor(c("less", "less", "greater", "greater", 
+                        "less", "greater", "greater", "greater", 
+                        "greater", "less"))
+
+prob1_df = tibble(unif_samp, vec_logical, vec_char, vec_factor)
+
+
 ```
 
 
+### Taking the mean of each variable
+We will try to take the mean of each variable in the dataframe and see which variables return a mean value and which variables will not.
 
-
+* Only numeric or logical variables will return a mean.
+    + The mean for *unif_samp* is **`r mean(unif_samp)`**.
+    + The mean for *vec_logical* is **`r mean(vec_logical)`**.  
+* Character and factor variables will not return a mean.
+    + The mean for *vec_char* is **`r mean(vec_char)`**.
+    + The mean for *vec_factor* is **`r mean(vec_factor)`**.

@@ -134,23 +134,43 @@ $(document).ready(function () {
 <h2>Creating a dataframe</h2>
 <p>The chunk below creates a dataframe containing a sample of size 10 from a random uniform[0,5] distributed variable, a logical vector indicating whether elements of the sample are greater than 2, a (length-10) character vector, and a (length-10) factor vector.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
 ## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
 ## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
 ## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>prob1_df = tibble(
-  unif_samp = runif(10, min = 0, max = 5),
-  vec_logical = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE,
-                  FALSE),
-  vec_char = c(&quot;This&quot;, &quot;is&quot;, &quot;my&quot;, &quot;first&quot;, &quot;homework&quot;, &quot;using&quot;, &quot;R&quot;, &quot;for&quot;,
-               &quot;data&quot;, &quot;science&quot;),
-  vec_factor = factor(c(&quot;greater&quot;, &quot;less&quot;, &quot;greater&quot;, &quot;less&quot;, &quot;less&quot;,
-                        &quot;greater&quot;, &quot;greater&quot;, &quot;greater&quot;, &quot;greater&quot;, &quot;less&quot;))
-)</code></pre>
+<pre class="r"><code>set.seed(1)
+
+unif_samp = runif(n = 10, min = 0, max = 5)
+vec_logical = c(FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, 
+                  TRUE, TRUE, TRUE, FALSE)
+vec_char = c(&quot;This&quot;, &quot;is&quot;, &quot;my&quot;, &quot;first&quot;, &quot;homework&quot;, 
+               &quot;using&quot;, &quot;R&quot;, &quot;for&quot;, &quot;data&quot;, &quot;science&quot;)
+vec_factor = factor(c(&quot;less&quot;, &quot;less&quot;, &quot;greater&quot;, &quot;greater&quot;, 
+                        &quot;less&quot;, &quot;greater&quot;, &quot;greater&quot;, &quot;greater&quot;, 
+                        &quot;greater&quot;, &quot;less&quot;))
+
+prob1_df = tibble(unif_samp, vec_logical, vec_char, vec_factor)</code></pre>
+<div id="taking-the-mean-of-each-variable" class="section level3">
+<h3>Taking the mean of each variable</h3>
+<p>We will try to take the mean of each variable in the dataframe and see which variables return a mean value and which variables will not.</p>
+<ul>
+<li>Only numeric or logical variables will return a mean.
+<ul>
+<li>The mean for <em>unif_samp</em> is <strong>2.7575694</strong>.</li>
+<li>The mean for <em>vec_logical</em> is <strong>0.6</strong>.<br />
+</li>
+</ul></li>
+<li>Character and factor variables will not return a mean.
+<ul>
+<li>The mean for <em>vec_char</em> is <strong>NA</strong>.</li>
+<li>The mean for <em>vec_factor</em> is <strong>NA</strong>.</li>
+</ul></li>
+</ul>
+</div>
 </div>
 </div>
 
