@@ -135,18 +135,21 @@ $(document).ready(function () {
 <p>The chunk below creates a dataframe containing a sample of size 10 from a random uniform[0,5] distributed variable, a logical vector indicating whether elements of the sample are greater than 2, a (length-10) character vector, and a (length-10) factor vector.</p>
 <pre class="r"><code>set.seed(1)
 
-unif_samp = runif(n = 10, min = 0, max = 5)
-vec_logical = unif_samp &gt; 2
-vec_char = c(&quot;This&quot;, &quot;is&quot;, &quot;my&quot;, &quot;first&quot;, &quot;homework&quot;, 
-               &quot;using&quot;, &quot;R&quot;, &quot;for&quot;, &quot;data&quot;, &quot;science&quot;)
-vec_factor = factor(c(&quot;less&quot;, &quot;less&quot;, &quot;greater&quot;, &quot;greater&quot;, 
-                        &quot;less&quot;, &quot;greater&quot;, &quot;greater&quot;, &quot;greater&quot;, 
-                        &quot;greater&quot;, &quot;less&quot;))
-
-prob1_df = tibble(unif_samp, vec_logical, vec_char, vec_factor)</code></pre>
+prob1_df = tibble(unif_samp = runif(n = 10, min = 0, max = 5), 
+                  vec_logical = unif_samp &gt; 2, 
+                  vec_char = c(&quot;This&quot;, &quot;is&quot;, &quot;my&quot;, &quot;first&quot;, &quot;homework&quot;, 
+                               &quot;using&quot;, &quot;R&quot;, &quot;for&quot;, &quot;data&quot;, &quot;science&quot;), 
+                  vec_factor = factor(c(&quot;less&quot;, &quot;less&quot;, &quot;greater&quot;, &quot;greater&quot;, 
+                                        &quot;less&quot;, &quot;greater&quot;, &quot;greater&quot;, &quot;greater&quot;, 
+                                        &quot;greater&quot;, &quot;less&quot;))
+                  )</code></pre>
 <div id="taking-the-mean-of-each-variable" class="section level3">
 <h3>Taking the mean of each variable</h3>
 <p>We will try to take the mean of each variable in the dataframe and see which variables return a mean value and which variables will not.</p>
+<pre class="r"><code>mean(prob1_df$unif_samp)
+mean(prob1_df$vec_logical)
+mean(prob1_df$vec_char)
+mean(prob1_df$vec_factor)</code></pre>
 <ul>
 <li>Only numeric or logical variables will return a mean.
 <ul>
@@ -165,23 +168,31 @@ prob1_df = tibble(unif_samp, vec_logical, vec_char, vec_factor)</code></pre>
 <div id="converting-into-a-numeric-variable" class="section level4">
 <h4>Converting into a numeric variable</h4>
 <p>The chunk below will explicitly convert logical, character, and factor variables into a numeric variable.</p>
-<pre class="r"><code>as.numeric(vec_logical)
-as.numeric(vec_char)
-as.numeric(vec_factor)</code></pre>
+<pre class="r"><code>as.numeric(prob1_df$vec_logical)
+as.numeric(prob1_df$vec_char)
+as.numeric(prob1_df$vec_factor)</code></pre>
 <p>The logical and factor variables were able to be converted into a numeric variable, but R was unable to turn a character variable into a numeric one (NAs introduced by coercion).</p>
 </div>
 <div id="converting-a-character-variable" class="section level4">
 <h4>Converting a character variable</h4>
 <p>The chunk below will convert the character variable from character to factor to numeric</p>
-<pre class="r"><code>as.factor(vec_char)
-as.numeric(vec_char)</code></pre>
+<pre class="r"><code>as.factor(prob1_df$vec_char)</code></pre>
+<pre><code>##  [1] This     is       my       first    homework using    R       
+##  [8] for      data     science 
+## Levels: data first for homework is my R science This using</code></pre>
+<pre class="r"><code>as.numeric(prob1_df$vec_char)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre><code>##  [1] NA NA NA NA NA NA NA NA NA NA</code></pre>
 <p>R was able to convert the character variable to a factor variable and created 10 levels. R was unable to convert the character variable to a numeric variable (NAs introduced by coercion).</p>
 </div>
 <div id="converting-a-factor-variable" class="section level4">
 <h4>Converting a factor variable</h4>
 <p>The chunk below will convert the factor variable from factor to character to numeric</p>
-<pre class="r"><code>as.character(vec_factor)
-as.numeric(vec_factor)</code></pre>
+<pre class="r"><code>as.character(prob1_df$vec_factor)</code></pre>
+<pre><code>##  [1] &quot;less&quot;    &quot;less&quot;    &quot;greater&quot; &quot;greater&quot; &quot;less&quot;    &quot;greater&quot; &quot;greater&quot;
+##  [8] &quot;greater&quot; &quot;greater&quot; &quot;less&quot;</code></pre>
+<pre class="r"><code>as.numeric(prob1_df$vec_factor)</code></pre>
+<pre><code>##  [1] 2 2 1 1 2 1 1 1 1 2</code></pre>
 <p>R was able to convert the factor variable to both a character and numeric variable. Now, there are 10 characters as opposed to 2 levels. There are only 2 numbers used - “1” to signify “greater” and “2” to signify “less”.</p>
 </div>
 </div>
@@ -194,14 +205,13 @@ as.numeric(vec_factor)</code></pre>
 <p>The chunk below creates a dataframe comprised of x (a random sample of size 1000 from a standard Normal distribution), y (a random sample of size 1000 from a standard Normal distribution), a logical vector indicating whether the x + y &gt; 0, a numeric vector created by coercing the above logical vector, and a factor vector created by coercing the above logical vector.</p>
 <pre class="r"><code>set.seed(1)
 
-x = rnorm(1000)
-y = rnorm(1000)
-xy_logical = x + y &gt; 0
-num_coerc = as.numeric(xy_logical)
-fac_coerc = as.factor(xy_logical)
-
-prob2_df = tibble(x, y, xy_logical, num_coerc, fac_coerc)</code></pre>
-<p>The mean for <em>x</em> is <strong>-0.0116481</strong> and the median for <em>x</em> is <strong>-0.0353242</strong>.</p>
+prob2_df = tibble(x = rnorm(1000), 
+                  y = rnorm(1000), 
+                  xy_logical = x + y &gt; 0, 
+                  num_coerc = as.numeric(xy_logical), 
+                  fac_coerc = as.factor(xy_logical)
+                  )</code></pre>
+<p>The data set is comprise of <strong>1000 rows</strong> and <strong>5 columns</strong>. The mean for <em>x</em> is <strong>-0.0116481</strong> and the median for <em>x</em> is <strong>-0.0353242</strong>. The proportion of cases for which the logical vector is true is <strong>0.49</strong>.</p>
 </div>
 <div id="scatterplot-of-x-and-y" class="section level2">
 <h2>Scatterplot of x and y</h2>
