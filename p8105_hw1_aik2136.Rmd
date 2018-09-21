@@ -12,8 +12,12 @@ library(tidyverse)
 ```
 
 ## Creating a dataframe
-The chunk below creates a dataframe containing a sample of size 10 from a 
-random uniform[0,5] distributed variable, a logical vector indicating whether elements of the sample are greater than 2, a (length-10) character vector, and a (length-10) factor vector.
+The chunk below creates a dataframe containing: 
+
+* a sample of size 10 from a random uniform[0,5] distributed variable 
+* a logical vector indicating whether elements of the sample are greater than 2 
+* a (length-10) character vector 
+* a (length-10) factor vector.
 
 ```{r create_prob1_df}
 # Setting seed for reproducibility:
@@ -31,3 +35,24 @@ prob1_df = tibble(unif_samp = runif(n = 10, min = 0, max = 5),
 
 ```
 
+### Taking the mean of each variable
+
+A numeric vector will return a mean. The mean of the random sample of size 10 from a uniform[0, 5] distribution is **`r mean(prob1_df$unif_samp)`**.
+```{r mean_unif_samp, eval = FALSE}
+samp_mean = mean(prob1_df$unif_samp)
+```
+
+A logical vector will return a mean, as values that are "TRUE" = 1 and values that are "FALSE" = 0. Averages can then be calculated for the translated numeric values. The mean for *vec_logical* is **`r mean(prob1_df$vec_logical)`**. 
+```{r mean_vec_logical, eval = FALSE}
+logical_mean = mean(prob1_df$vec_logical)
+```
+
+A character vector will not return a mean. Only vectors that are numeric or logical will return a mean. The mean for *vec_char* is **`r mean(prob1_df$vec_char)`**. 
+```{r mean_vec_char, eval = FALSE}
+char_mean = mean(prob1_df$vec_char)
+```
+
+A factor vector also will not return a mean. Only vectors that are numeric or logical will return a mean. The mean for *vec_factor* is **`r mean(prob1_df$vec_factor)`**. 
+```{r mean_vec_factor, eval = FALSE}
+factor_mean = mean(prob1_df$vec_factor)
+```
